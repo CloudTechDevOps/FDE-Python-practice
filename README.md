@@ -13,7 +13,15 @@
 | 28-Oct-2026 | Literals, Constants, and Operators in Python |
 | 29-Oct-2026 | Assignment and Bitwise Operators in Python |
 | 30-Oct-2026 | Data Types, Type Conversion, and f-Strings in Python |
-| 31-Oct-2026 | *Add today's topics here* |
+|  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
 
 ---
 
