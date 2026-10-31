@@ -1,4 +1,4 @@
-<h1 align="center">Python Learning Journey</h1>
+<h1 align="center"> 🐍  Python Learning Journey</h1>
 <!-- <h3 align="center">Daily Concepts, Code Examples & Practice</h3> -->
 <h3 align="center">FDE (Forward Deployed Engineer) Training</h3>
 <p align="center">Daily Learning Index | October 2026</p>
