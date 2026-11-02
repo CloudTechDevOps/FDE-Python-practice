@@ -1,3 +1,4 @@
+
 # Jupyter Notebook checkpoints
 
 .ipynb_checkpoints/
@@ -27,4 +28,6 @@ Thumbs.db
 
 .vscode/
 .idea/
+
+
 
