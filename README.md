@@ -14,8 +14,8 @@
 | 28-Oct-2026 | Literals, Constants, and Operators in Python |
 | 29-Oct-2026 | Assignment and Bitwise Operators in Python |
 | 30-Oct-2026 | Data Types, Type Conversion, and f-Strings in Python |
-|  | ** |
-|  | ** |
+| 31-Oct-2026 | *Doubt claering session* |
+| 02-Nov-2026 | *Conditions statements (if,else,elif)* |
 |  | ** |
 |  | ** |
 |  | ** |
