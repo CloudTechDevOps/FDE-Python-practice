@@ -16,6 +16,10 @@
 | 30-Oct-2026 | Data Types, Type Conversion, and f-Strings in Python |
 | 31-Oct-2026 | *Doubt claering session* |
 | 02-Nov-2026 | *Conditions statements (if,else,elif)* |
+| 03-Nov-2026 | *For Loop Python* |
+| 04-Nov-2026 | *While Loop Python* |
+| 05-Nov-2026 | *python Data-Structures string,list,tuuple* |
+| 06-Nov-2026 | *python Data-Structures DataStructures-mutability-immutability* |
 |  | ** |
 |  | ** |
 |  | ** |
@@ -23,6 +27,20 @@
 |  | ** |
 |  | ** |
 |  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
+|  | ** |
+
+
 
 ---
 
