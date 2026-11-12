@@ -20,9 +20,9 @@
 | 04-Nov-2026 | *While Loop Python* |
 | 05-Nov-2026 | *python Data-Structures string,list,tuuple* |
 | 06-Nov-2026 | *python Data-Structures DataStructures-mutability-immutability* |
-|  | ** |
-|  | ** |
-|  | ** |
+| 09-Nov-2026 | *python Functions-no-parameter-return* |
+| 10-Nov-2026 | *python Functions-with-parameter-return* |
+| 11-Nov-2026 | *Genai modelling with python functions SDK-LLM-Models-calling* |
 |  | ** |
 |  | ** |
 |  | ** |
