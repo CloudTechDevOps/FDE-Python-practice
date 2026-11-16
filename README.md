@@ -23,10 +23,10 @@
 | 09-Nov-2026 | *python Functions-no-parameter-return* |
 | 10-Nov-2026 | *python Functions-with-parameter-return* |
 | 11-Nov-2026 | *Genai modelling with python functions SDK-LLM-Models-calling* |
-|  | ** |
-|  | ** |
-|  | ** |
-|  | ** |
+| 12-Nov-2026 | *python-lambda-functions* |
+| 13-Nov-2026 | *python Exception-handlings* |
+| 14-Nov-2026 | *Git and GitHub recap session* |
+| 14-Nov-2026 | *python environments* |
 |  | ** |
 |  | ** |
 |  | ** |
