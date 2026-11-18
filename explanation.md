@@ -1,6 +1,5 @@
-# 🐍 Python Learning Journey – Theory & Explanation
+# 🐍 Python for FDE – Theory Explanation & Tasks
 
-FDE (Forward Deployed Engineer) Training · Companion to [README.md](README.md)
 
 This file gives the theory behind each topic in the README's daily learning log. Each topic links to its practice notebook or folder and ends with **5 practice tasks** based on the same examples done in class, so you can redo them on your own.
 
