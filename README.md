@@ -26,8 +26,8 @@
 | 12-Nov-2026 | *python-lambda-functions* |
 | 13-Nov-2026 | *python Exception-handlings* |
 | 14-Nov-2026 | *Git and GitHub recap session* |
-| 14-Nov-2026 | *python environments* |
-|  | ** |
+| 16-Nov-2026 | *python environments* |
+| 17-Nov-2026 | *python modules,from,import,userdefined,inbuilt* |
 |  | ** |
 |  | ** |
 |  | ** |
