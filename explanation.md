@@ -28,6 +28,8 @@ This file gives the theory behind each topic in the README's daily learning log.
 | 16 | 14-Nov-2026 | Git and GitHub Recap | – |
 | 17 | 16-Nov-2026 | Python Environments | [env-modules/envs/](env-modules/envs/) |
 | 18 | 17-Nov-2026 | Python Modules – import, from, user-defined, built-in | [env-modules/modules/](env-modules/modules/) |
+| 19 | 18-Nov-2026 | OOP Introduction – Class, Object, Methods, Variables | [OOps-python/practice.ipynb](OOps-python/practice.ipynb) |
+| 20 | 19-Nov-2026 | OOP – Class & Instance Variables, Methods, Constructor, Encapsulation | [OOps-python/oops.ipynb](OOps-python/oops.ipynb) |
 
 ---
 
@@ -837,6 +839,133 @@ When a module is imported, Python **runs all of its top-level code once**. That 
 3. Guard method: run `message.py` directly, then run `main.py` which imports it, and compare the outputs. Do the same with `calculator.py` and its `main.py`, and explain why the code inside `if __name__ == "__main__":` runs only once.
 4. User-defined modules: compare `without_module.py` with the separate `addition`, `subtraction`, `multiplication` and `division` modules. Run `main.py`, then add a fifth module (for example `modulus`) and import it in `main.py`.
 5. Third-party module: install `requests`, run the weather program for your city, and print the temperature, feels-like value, humidity and weather description. Then run the mini microservice, add a new product, and test what happens when the quantity is 0.
+---
+
+## 19. OOP Introduction – Class, Object, Methods, Variables
+📅 18-Nov-2026 · 📓 [OOps-python/practice.ipynb](OOps-python/practice.ipynb)
+
+### What is OOP?
+**Object-Oriented Programming (OOP)** is a way of organising code around **classes** and **objects**. Data (variables) and the behaviour that works on that data (functions) are kept together in one unit, instead of being spread across separate variables and functions.
+
+### Class
+A **class** is a **blueprint or template** for creating objects. It describes what data an object will hold and what it can do. You define one with the `class` keyword, and by convention class names use **PascalCase** (such as `Car` or `Student`).
+
+### Object
+An **object** is an **instance** of a class: a real thing built from the blueprint. You create one by calling the class like a function, with brackets after the name. The variable on the left (such as `c1`) is a **reference** to that object. You can create many objects from one class, and each one has its own data.
+
+### Attributes (Variables) and Dot Notation
+Variables that belong to a class or object are called **attributes**. You read them with **dot notation**: object name, a dot, then the attribute name (such as `c1.color`).
+
+### Methods
+A **method** is a **function defined inside a class**. It describes what the object can do, such as `start`, `stop` or `move` for a car. You call it with dot notation on the object, for example `car1.start()`.
+
+### self
+- Every instance method must take **`self` as its first parameter**.
+- `self` refers to **the object the method was called on**. When you call `c1.display()`, Python passes `c1` in as `self` automatically.
+- Inside the class, `self.name` means "the `name` belonging to this particular object".
+- `self` is a naming convention, not a keyword, but always use it.
+
+### `__init__` (A First Look)
+`__init__` is a special method that runs **automatically when an object is created**. Values passed in the brackets (such as `Car("skoda", "red")`) are received by `__init__` and stored on the object with `self`. This is covered in more depth in the next section.
+
+### Without OOP vs With OOP
+In the notebook, three cars were first written **without OOP**: every car needed its own variables (`car1_color`, `car2_color`, ...) and its own copy of every function (`start_car1`, `start_car2`, ...). Adding a fourth car means copying everything again.
+
+With OOP, **one `Car` class** holds the data and the `start`, `stop` and `move` methods. Each new car is just one line, such as `Car("white", 12, "electric")`.
+
+| Without OOP | With OOP |
+|---|---|
+| Separate variables for every item | One class, many objects |
+| Functions duplicated per item | Methods written once and shared |
+| Hard to add or change items | New object = one line |
+| Data and functions are loosely connected | Data and behaviour bundled together |
+
+### The Four Pillars of OOP (Preview)
+1. **Encapsulation:** bundling data with methods and protecting it from direct outside access.
+2. **Inheritance:** a class reusing and extending another class.
+3. **Polymorphism:** the same method name behaving differently in different classes.
+4. **Abstraction:** hiding complex details and exposing only what is needed.
+
+### 📝 Tasks
+*(Based on the examples practised in class.)*
+
+1. Create a `Car` class with the variables `name = "skoda"`, `color = "red"` and `speed = 100`. Create an object `c1` and print all three values using dot notation.
+2. Create a `Student` class with `name`, `roll` and `age`. Create two objects and print their values. Notice that both objects show the same data, and think about why.
+3. Add a `display(self)` method to the `Car` class that prints the name and color. Call it with `c1.display()`, then try defining it without `self` and note the error you get.
+4. Write a `Car` class with `__init__(self, name, color)`. Create `Car("skoda", "red")` and `Car("bmw", "black")` and print each car's name and color.
+5. Rewrite the three-car "without OOP" example as one `Car` class with `color`, `mileage` and `fuel`, and `start`, `stop` and `move` methods. Create three cars, call every method on each, and then add a fourth car to see how little code it needs.
+---
+
+## 20. OOP – Class & Instance Variables, Methods, Constructor, Encapsulation
+📅 19-Nov-2026 · 📓 [OOps-python/oops.ipynb](OOps-python/oops.ipynb)
+
+### Class Variables
+- Defined **directly inside the class**, outside any method (such as `school = "ABC"` or `country = "India"`).
+- **Shared by all objects** of the class: there is one copy, and every object sees it.
+- Can be accessed through the **class name** (`Student.school`) or through **an object** (`s1.school`).
+- Use them for values that are the same for every object, such as the bank name or the country.
+
+### Instance Variables
+- Defined **inside a method using `self`** (such as `self.name = name`).
+- **Belong to one object only**: each object has its own copy with its own value.
+- Accessed through the object (`s1.name`).
+- Use them for data that differs per object, such as name, roll number or balance.
+
+| | Class Variable | Instance Variable |
+|---|---|---|
+| Where defined | Inside the class, outside methods | Inside a method, with `self.` |
+| Copies | One, shared by all objects | One per object |
+| Accessed with | `ClassName.var` or `obj.var` | `obj.var` |
+| Example | `bank_name = "HDFC"` | `self.balance = balance` |
+
+### Instance Methods
+An **instance method** is a normal method that takes `self` as its first parameter, so it can read and change that object's instance variables. `display`, `deposit`, `withdraw` and `show_balance` in the notebook are all instance methods.
+
+### Constructor: `__init__`
+- `__init__` is the **constructor**. Python calls it **automatically** every time an object is created.
+- Its job is to **set up the object's starting data** (its instance variables).
+- The arguments you pass when creating the object, such as `Student("veera", 232, 20)`, go straight into `__init__`.
+- The double underscores mark it as a special ("dunder") method.
+
+**Without `__init__`:** you create an empty object and then must remember to call a separate method (such as `display`) to fill in the data. If you forget, the object has no data and accessing it raises an `AttributeError`.
+
+**With `__init__`:** the object is created and filled in **one step**, so every object always starts complete.
+
+### Why OOP Instead of Separate Variables
+The student example compared four students stored as twenty separate variables (`s1_name`, `s1_age`, ...) plus a `display_student` function, against one `Student` class with a constructor. With the class, each student is one line, and all of a student's data travels together in one object.
+
+### Encapsulation
+**Encapsulation** means **bundling data and the methods that work on it inside a class**, and **restricting direct access** to that data from outside. Outside code should change the data only through the class's methods, so the class stays in control and can enforce rules (such as "you cannot withdraw more than the balance").
+
+**Without encapsulation:** in the `Bank` example, anyone can write `b1.balance = 0` and wipe the balance directly, skipping `deposit` and `withdraw` completely.
+
+### Access Levels in Python (Naming Conventions)
+
+| Style | Example | Meaning |
+|---|---|---|
+| Public | `self.name` | Accessible from anywhere |
+| Protected | `self._balance` | **Convention only**: "internal, please don't touch from outside". Python does not block it |
+| Private | `self.__balance` | Python **name-mangles** it, so it cannot be accessed by that name from outside the class |
+
+### Private Variables and Name Mangling
+- A variable starting with **two underscores** (such as `self.__balance`) is **private**.
+- Python renames it internally to `_Bank__balance`. This is called **name mangling**.
+- Inside the class, `self.__balance` works normally.
+- Outside the class, reading `b1.__balance` raises an `AttributeError`.
+- In the notebook, `b1.__balance = 0` **did not change the real balance**. It quietly created a **new, separate attribute** on the object, and `show_balance()` still printed the correct balance. That is encapsulation protecting the data.
+- Name mangling discourages access but is not true security: `b1._Bank__balance` still reaches it. Python relies on convention ("we are all consenting adults").
+
+### Controlling Access with Methods
+The right way to work with private data is through **methods**, which can validate input. For example, `deposit` can reject negative amounts and `withdraw` can refuse to go below zero. A method that returns a private value (such as `get_balance()`) is called a **getter**, and one that changes it safely is a **setter**.
+
+### 📝 Tasks
+*(Based on the examples practised in class.)*
+
+1. Create a `Student` class with class variables `school = "ABC"` and `country = "India"`. Print them using the class name and using an object. Then change `Student.school` and check that every object sees the new value.
+2. Add a `display(self, name, roll, age)` method that stores instance variables. Create two students with different data and confirm that each object keeps its own values. Then create a third object, skip calling `display`, try printing its name, and note the error.
+3. Rewrite the class with `__init__(self, name, roll, age)` so data is passed at creation time. Create four students (veera, sai, kumar, raju) with name, age, mobile, email and course, and print each one.
+4. Build the `Bank` class without encapsulation, then set `b1.balance = 0` from outside and show the balance. Rebuild it with `self.__balance`, try `b1.__balance = 0`, and explain why `show_balance()` still prints the correct amount. Try printing `b1.__balance` and `b1._Bank__balance` too.
+5. Improve the encapsulated `Bank` class: make `deposit` reject amounts ≤ 0, make `withdraw` refuse to go below zero (print "insufficient balance"), and add a `get_balance()` getter. Test it with valid and invalid amounts.
 ---
 
 ### 🎯 Learning Objective
