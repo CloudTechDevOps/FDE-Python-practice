@@ -29,7 +29,7 @@
 | 16-Nov-2026 | *python environments* |
 | 17-Nov-2026 | *python modules,from,import,userdefined,inbuilt* |
 | 18-Nov-2026 | *python opps introduction and class,methods,objects and variables* |
-| 17-Nov-2026 | *python opps _varibles,instance variables,methods,encapsulation,constructor* |
+| 19-Nov-2026 | *python opps _varibles,instance variables,methods,encapsulation,constructor* |
 |  | ** |
 |  | ** |
 |  | ** |
