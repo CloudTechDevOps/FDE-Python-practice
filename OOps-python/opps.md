@@ -168,6 +168,54 @@ class PhonePe(Payment):
     def pay(self, amount):
         print("Paid through PhonePe")
 ```
+### example-2
+
+```python
+
+class Bank:
+
+    def __init__(self):
+        self.__balance = 1000
+
+    def show_balance(self):
+        print("Available Balance:", self.__balance)
+
+    def deposit(self, amount):
+        self.__balance = amount + self.__balance
+        print("Deposited:", amount)
+
+
+class SavingsAccount(Bank):
+
+    def interest(self):
+        print("Savings account interest: 5%")
+
+
+class CurrentAccount(Bank):
+
+    def business(self):
+        print("Business transactions enabled")
+
+
+# Savings Account
+s1 = SavingsAccount()
+
+s1.show_balance()
+s1.deposit(500)
+s1.show_balance()
+s1.interest()
+
+
+print("----------------")
+
+# Current Account
+c1 = CurrentAccount()
+
+c1.show_balance()
+c1.deposit(2000)
+c1.show_balance()
+c1.business()
+```
 
 ---
 
