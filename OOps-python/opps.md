@@ -313,6 +313,13 @@ c1.display()
 #When we call c1.display(), Python executes the Child method.
 #super().display() explicitly calls the next implementation, which is Parent's method here.
 
+
+1. Inheritance – Parent and Child classes.
+2. Accessing parent methods through child objects.
+3. Additional methods in child classes.
+4. Method overriding – Same method name in Parent and Child.
+5. super() – Reusing the parent's implementation.
+6. super().__init__() – Calling the parent constructor.
 ---
 ## Polymorphism
 
