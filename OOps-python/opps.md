@@ -231,7 +231,89 @@ c1.business()
 ```
 
 ---
+## super method
 
+##### First example 
+```python
+class Parent:
+
+    def display(self):
+        print("Parent method")
+
+
+class Child(Parent):
+
+    def show(self):
+        print("Child method")
+
+
+c1 = Child()
+
+c1.display()  # Parent method
+c1.show()     # Child method
+```
+#display() belongs to Parent.
+#show() belongs to Child.
+#Child inherits display() from Parent.
+#Both methods have different names, so there is no method overriding.
+#We can call both methods directly using the Child object.
+
+#### so no need super method ###
+
+===================================================
+## Second example – Same method name both using display Child overrides the parent's method (Method Overriding)##
+```python
+class Parent:
+
+    def display(self):
+        print("Parent method")
+
+
+class Child(Parent):
+
+    def display(self):
+        super().display()  # Calls Parent method
+        print("Child method")  # Executes Child method
+
+
+c1 = Child()
+c1.display()
+
+```
+#display() belongs to Parent.
+#Child also defines display().
+#Child overrides the parent's method.
+#When we call c1.display(), Python executes the Child method.
+
+
+===================================================================
+ 
+##Second example – Same method name (Method Overriding)##
+                ##Super method##
+```python
+ class Parent:
+
+    def display(self):
+        print("Parent method")
+
+
+class Child(Parent):
+
+    def display(self):
+        super().display()
+        print("Child method")
+
+
+c1 = Child()
+c1.display()
+```
+#display() belongs to Parent.
+#Child also defines display().
+#Child overrides the parent's method.
+#When we call c1.display(), Python executes the Child method.
+#super().display() explicitly calls the next implementation, which is Parent's method here.
+
+---
 ## Polymorphism
 
 ### E-commerce Applications
