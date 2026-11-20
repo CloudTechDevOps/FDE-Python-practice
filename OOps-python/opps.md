@@ -153,6 +153,7 @@ customer.check_balance()
 
 It allows a child class to reuse the code of a parent class without writing the same code again.
 
+Inheritance allows a child class to reuse parent-class methods and attributes while also defining its own functionality.
 ```python
 class Parent:
 
