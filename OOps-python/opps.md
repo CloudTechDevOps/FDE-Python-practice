@@ -251,13 +251,13 @@ c1 = Child()
 
 c1.display()  # Parent method
 c1.show()     # Child method
-```
+
 #display() belongs to Parent.
 #show() belongs to Child.
 #Child inherits display() from Parent.
 #Both methods have different names, so there is no method overriding.
 #We can call both methods directly using the Child object.
-
+```
 #### so no need super method ###
 
 ===================================================
@@ -279,12 +279,11 @@ class Child(Parent):
 c1 = Child()
 c1.display()
 
-```
 #display() belongs to Parent.
 #Child also defines display().
 #Child overrides the parent's method.
 #When we call c1.display(), Python executes the Child method.
-
+```
 
 ===================================================================
  
@@ -306,13 +305,13 @@ class Child(Parent):
 
 c1 = Child()
 c1.display()
-```
+
 #display() belongs to Parent.
 #Child also defines display().
 #Child overrides the parent's method.
 #When we call c1.display(), Python executes the Child method.
 #super().display() explicitly calls the next implementation, which is Parent's method here.
-
+```
 
 1. Inheritance – Parent and Child classes.
 2. Accessing parent methods through child objects.
