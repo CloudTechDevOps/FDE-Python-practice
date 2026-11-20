@@ -290,7 +290,7 @@ c1.display()
 ##Second example – Same method name (Method Overriding)##
                 ##Super method##
 ```python
- class Parent:
+class Parent:
 
     def display(self):
         print("Parent method")
