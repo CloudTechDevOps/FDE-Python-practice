@@ -243,39 +243,68 @@ All use a common `pay()` method but have different implementations.
 
 ## Abstraction
 
-Hides implementation details and exposes essential operations.
+The college says every student must submit:
+1. Assignment 1
+2. Assignment 2
+3. Assignment 3
+If a student misses Assignment 2, the college doesn't accept the submission.
 
-### Real-time scenario
+Similarly:
 
-Imagine you visit an ATM and withdraw ₹2,000.
+Abstract class = College rules
 
-**What the customer is allowed to do**
+Abstract methods = Mandatory assignments
 
-1. Insert ATM card.
-2. Enter PIN.
-3. Select Withdraw.
-4. Enter amount.
-5. Receive cash.
+Child class = Student
 
-**What is hidden from the customer?**
+Creating child object = Accepting the submission
+Final concept
+Without abstraction, Python doesn't force child classes to implement particular methods.
 
-1. How the bank verifies the PIN.
-2. How the bank connects to its database.
-3. How the account balance is checked.
-4. How the transaction is processed.
-5. How the bank updates the balance.
+With abstraction, Python enforces the required methods before allowing an object of the concrete child class to be created.
 
-The customer uses the functionality without needing to know the internal implementation.
+This is the main benefit of Abstraction
 
----
 
-## Task: Student Marks
+| Without Abstraction                                                            | With Abstraction |
 
-Create a `Student` class.
+| Developer can forget required methods                                          | Python forces implementation |
+| Object can be created even with missing methods                                | Object creation is prevented |
+| No common enforced structure                                                   | Common structure is enforced |
+| Errors may occur later | Missing implementation is detected at object creation |
 
-Requirements:
 
-1. Create private variable `__marks = 85`.
-2. Create `show_marks()` method.
-3. Create `update_marks(new_marks)` method.
-4. Try modifying marks directly from outside.
+```python
+from abc import ABC, abstractmethod
+
+
+class ATM(ABC):
+
+    @abstractmethod
+    def withdraw(self, amount):
+        pass
+
+    @abstractmethod
+    def check_balance(self):
+        pass
+
+
+class SBI(ATM):
+
+    def __init__(self):
+        self.balance = 10000
+
+    def withdraw(self, amount):
+        self.balance -= amount
+        print("Withdrawn:", amount)
+
+    def check_balance(self):
+        print("Available Balance:", self.balance)
+
+# Creating object
+a = SBI()
+a.withdraw(2000)
+a.check_balance()
+
+```
+
