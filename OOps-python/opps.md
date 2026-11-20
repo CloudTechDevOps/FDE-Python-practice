@@ -85,7 +85,7 @@ Now we can create 100, 1,000, or more customer objects using the same class.
 
 ---
 
-## Example: Encapsulation
+## Encapsulation
 
 ### Real-time example: Bank ATM
 
@@ -154,19 +154,31 @@ customer.check_balance()
 It allows a child class to reuse the code of a parent class without writing the same code again.
 
 ```python
-class Payment:
-    def pay(self, amount):
-        print("Processing payment")
+class Parent:
+
+    def house(self):
+        print("Parent owns a house")
+
+    def car(self):
+        print("Parent owns a car")
 
 
-class GooglePay(Payment):
-    def pay(self, amount):
-        print("Paid through Google Pay")
+class Child(Parent): #Here, Child(Parent) means the Child class inherits from the Parent class.
+
+    def bike(self):
+        print("Child owns a bike")
 
 
-class PhonePe(Payment):
-    def pay(self, amount):
-        print("Paid through PhonePe")
+# Creating child object
+c1 = Child() #The Child class can access both parent-class methods and its own methods.
+
+# Accessing parent methods
+c1.house()
+c1.car()
+
+# Accessing child method
+c1.bike()
+
 ```
 ### example-2
 
@@ -238,6 +250,51 @@ All use a common `pay()` method but have different implementations.
 - Based on the selection, the corresponding object is created.
 - The common `pay()` method is called.
 - Python executes the method belonging to that object.
+
+```python
+class Payment:
+
+    def pay(self, amount):
+        print("Processing payment")
+
+
+class GooglePay(Payment):
+
+    def pay(self, amount):
+        print("Paid", amount, "through Google Pay")
+
+
+class PhonePe(Payment):
+
+    def pay(self, amount):
+        print("Paid", amount, "through PhonePe")
+
+
+class CreditCard(Payment):
+
+    def pay(self, amount):
+        print("Paid", amount, "through Credit Card")
+
+
+class CashOnDelivery(Payment):
+
+    def pay(self, amount):
+        print("Cash will be collected on delivery:", amount)
+
+
+# Customer selects payment method
+
+g = GooglePay()
+p = PhonePe()
+c = CreditCard()
+cod = CashOnDelivery()
+
+g.pay(5000)
+p.pay(3000)
+c.pay(10000)
+cod.pay(2000)
+
+```
 
 ---
 
