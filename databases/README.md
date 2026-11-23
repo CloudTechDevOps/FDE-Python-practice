@@ -764,3 +764,105 @@ The process:
 **Conclusion:**
 
 Understanding SQL, NoSQL, Vector Databases, CRUD operations, and Python database connectivity provides a strong foundation for Backend Development, Cloud Applications, and Generative AI Development.
+
+
+
+
+# MongoDB Shell Commands
+
+## 1. Create Connection
+
+Connect to MongoDB using the MongoDB Shell (`mongosh`).
+
+```bash
+mongosh
+```
+
+## 2. Create Collection
+
+Create a collection named `students`.
+
+```javascript
+db.createCollection("students")
+```
+
+## 3. Insert Documents
+
+Insert multiple student documents into the `students` collection.
+
+```javascript
+db.students.insertMany([
+    {name: "Veera", age: 30, course: "Python"},
+    {name: "Ravi", age: 25, course: "AWS"},
+    {name: "Kiran", age: 28, course: "DevOps"}
+])
+```
+
+## 4. Read Documents
+
+Display all documents from the `students` collection.
+
+```javascript
+db.students.find()
+```
+
+## 5. Update Documents
+
+Update Veera's age from 30 to 31.
+
+```javascript
+db.students.updateOne(
+    {name: "Veera"},
+    {$set: {age: 31}}
+)
+```
+
+## 6. Show Databases
+
+Display all databases available in MongoDB.
+
+```javascript
+show dbs
+```
+
+## 7. Show Collections
+
+Display all collections in the current database.
+
+```javascript
+show collections
+```
+
+## 8. Delete a Document
+
+Delete a student whose name is Ravi.
+
+```javascript
+db.students.deleteOne(
+    {name: "Ravi"}
+)
+```
+
+## 9. Drop Collection
+
+Delete the entire students collection.
+
+```javascript
+db.students.drop()
+```
+
+## 10. Drop Database
+
+Delete the current database.
+
+```javascript
+db.dropDatabase()
+```
+
+---
+
+**Note:**
+- `db` refers to the current database.
+- `students` is the collection name.
+- Documents are stored in BSON format.
+- `mongosh` is the MongoDB command-line shell.
