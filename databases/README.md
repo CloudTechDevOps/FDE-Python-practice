@@ -2,15 +2,6 @@
 
 A **Database** is an organized collection of data that allows applications to store, retrieve, update, and delete information.
 
-### Basic Database Operations (CRUD)
-
-| **Operation** | **Purpose**            | **SQL Command** |
-| ------------- | ---------------------- | --------------- |
-| Create        | Insert new data        | INSERT          |
-| Read          | Retrieve existing data | SELECT          |
-| Update        | Modify existing data   | UPDATE          |
-| Delete        | Remove existing data   | DELETE          |
-
 ---
 
 # 2. Types of Databases
@@ -423,6 +414,16 @@ print("Database Connected Successfully")
 
 # 9. CRUD Operations Using Python and MySQL
 
+
+### Basic Database Operations (CRUD)
+
+| **Operation** | **Purpose**            | **SQL Command** |
+| ------------- | ---------------------- | --------------- |
+| Create        | Insert new data        | INSERT          |
+| Read          | Retrieve existing data | SELECT          |
+| Update        | Modify existing data   | UPDATE          |
+| Delete        | Remove existing data   | DELETE          |
+
 CRUD stands for:
 
 - C – Create
@@ -738,67 +739,7 @@ The process:
 7. FastAPI returns a response to the frontend.
 
 ---
-
-# 12. What Should Students Learn?
-
-For Python Backend Development and AI/GenAI development, follow this learning order.
-
-| **Order** | **Technology** | **What to Learn**                |
-| --------- | -------------- | -------------------------------- |
-| 1         | MySQL          | SQL queries, tables, joins, CRUD |
-| 2         | MongoDB        | Documents, collections, CRUD     |
-| 3         | Redis          | Caching and key-value operations |
-| 4         | ChromaDB       | Embeddings and vector search     |
-| 5         | Pinecone       | Managed vector database          |
-| 6         | FAISS          | Vector similarity search         |
-
-### Recommended Learning Path
-
-**Phase 1 – Database Fundamentals**
-
-- What is a database?
-- Types of databases.
-- SQL vs NoSQL.
-- Database architecture.
-
-**Phase 2 – Relational Database**
-
-- MySQL installation.
-- Database and table creation.
-- INSERT, SELECT, UPDATE, DELETE.
-- Primary Key and Foreign Key.
-- Joins and relationships.
-- Transactions.
-
-**Phase 3 – NoSQL Database**
-
-- MongoDB installation.
-- Database and collection creation.
-- Document insertion.
-- Find, Update and Delete.
-- MongoDB with Python.
-
-**Phase 4 – Python Database Connectivity**
-
-- Database drivers.
-- Python and MySQL integration.
-- Python and MongoDB integration.
-- FastAPI and database integration.
-- CRUD API development.
-
-**Phase 5 – AI and GenAI Databases**
-
-- Introduction to embeddings.
-- Introduction to Vector Databases.
-- ChromaDB.
-- Pinecone.
-- Similarity Search.
-- RAG Architecture.
-- LangChain and Vector DB integration.
-
----
-
-# 13. Final Summary
+# 12. Final Summary
 
 | **Technology**  | **Main Purpose**                           |
 | --------------- | ------------------------------------------ |
