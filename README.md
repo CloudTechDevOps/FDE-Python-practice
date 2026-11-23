@@ -30,7 +30,7 @@
 | 17-Nov-2026 | *python modules,from,import,userdefined,inbuilt* |
 | 18-Nov-2026 | *python opps introduction and class,methods,objects and variables* |
 | 19-Nov-2026 | *python opps _varibles,instance variables,methods,encapsulation,constructor* |
-|  | ** |
+| 20-Nov-2026 | *python opps concepts like Polymorphism, Abstraction, super method and Inheritance * |
 |  | ** |
 |  | ** |
 |  | ** |
