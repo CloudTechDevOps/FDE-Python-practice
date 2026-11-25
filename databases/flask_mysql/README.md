@@ -23,15 +23,15 @@ CREATE TABLE users (
 ## 3. Application File (app.py)
 
 ```python
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from email_validator import validate_email, EmailNotValidError
 import mysql.connector
+from mysql.connector import IntegrityError
 
 app = Flask(__name__)
-
-# CORS
 CORS(app)
+
 
 # Database Connection
 def get_db():
@@ -42,6 +42,7 @@ def get_db():
         database="dev"
     )
 
+
 # GET - All users
 @app.route("/users", methods=["GET"])
 def get_users():
@@ -51,13 +52,11 @@ def get_users():
     cursor.execute("SELECT * FROM users")
     data = cursor.fetchall()
 
-    cursor.close()
     conn.close()
-
     return jsonify(data)
 
 
-# GET - One user
+# GET - Single user
 @app.route("/users/<int:id>", methods=["GET"])
 def get_user(id):
     conn = get_db()
@@ -66,8 +65,10 @@ def get_user(id):
     cursor.execute("SELECT * FROM users WHERE id=%s", (id,))
     data = cursor.fetchone()
 
-    cursor.close()
     conn.close()
+
+    if not data:
+        return jsonify({"error": "User not found"}), 404
 
     return jsonify(data)
 
@@ -77,27 +78,23 @@ def get_user(id):
 def add_user():
     data = request.get_json()
 
-    name = data["name"]
-    email = data["email"]
-
-    try:
-        validate_email(email)
-    except EmailNotValidError:
-        return jsonify({"error": "Invalid email"}), 400
-
     conn = get_db()
     cursor = conn.cursor()
 
-    cursor.execute(
-        "INSERT INTO users (name, email) VALUES (%s, %s)",
-        (name, email)
-    )
+    try:
+        cursor.execute(
+            "INSERT INTO users (name, email) VALUES (%s, %s)",
+            (data["name"], data["email"])
+        )
+        conn.commit()
 
-    conn.commit()
-    cursor.close()
-    conn.close()
+        return jsonify({"message": "User added successfully"}), 201
 
-    return jsonify({"message": "User added successfully"})
+    except IntegrityError:
+        return jsonify({"error": "Email already exists"}), 409
+
+    finally:
+        conn.close()
 
 
 # PUT - Update user
@@ -105,25 +102,20 @@ def add_user():
 def update_user(id):
     data = request.get_json()
 
-    name = data["name"]
-    email = data["email"]
-
-    try:
-        validate_email(email)
-    except EmailNotValidError:
-        return jsonify({"error": "Invalid email"}), 400
-
     conn = get_db()
     cursor = conn.cursor()
 
     cursor.execute(
         "UPDATE users SET name=%s, email=%s WHERE id=%s",
-        (name, email, id)
+        (data["name"], data["email"], id)
     )
 
     conn.commit()
-    cursor.close()
+    updated = cursor.rowcount
     conn.close()
+
+    if updated == 0:
+        return jsonify({"error": "User not found or no changes"}), 404
 
     return jsonify({"message": "User updated successfully"})
 
@@ -135,16 +127,20 @@ def delete_user(id):
     cursor = conn.cursor()
 
     cursor.execute("DELETE FROM users WHERE id=%s", (id,))
-
     conn.commit()
-    cursor.close()
+
+    deleted = cursor.rowcount
     conn.close()
+
+    if deleted == 0:
+        return jsonify({"error": "User not found"}), 404
 
     return jsonify({"message": "User deleted successfully"})
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=False)
+    app.run(host="0.0.0.0", port=8000)
+
 ```
 
 ## 4. Run Application
