@@ -23,25 +23,20 @@ CREATE TABLE users (
 ## 3. Application File (app.py)
 
 ```python
+
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr
 import mysql.connector
+from mysql.connector import IntegrityError
 
 app = FastAPI()
 
-# CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"]
-)
 
 # Pydantic Model
 class User(BaseModel):
     name: str
     email: EmailStr
+
 
 # Database Connection
 def get_db():
@@ -51,6 +46,7 @@ def get_db():
         password="root",
         database="dev"
     )
+
 
 # GET - All users
 @app.get("/users")
@@ -64,6 +60,7 @@ def get_users():
     conn.close()
     return data
 
+
 # GET - One user
 @app.get("/users/{id}")
 def get_user(id: int):
@@ -76,21 +73,30 @@ def get_user(id: int):
     conn.close()
     return data
 
+
+# POST - Add user
 # POST - Add user
 @app.post("/users")
 def add_user(user: User):
     conn = get_db()
     cursor = conn.cursor()
 
-    cursor.execute(
-        "INSERT INTO users (name, email) VALUES (%s, %s)",
-        (user.name, user.email)
-    )
+    try:
+        cursor.execute(
+            "INSERT INTO users (name, email) VALUES (%s, %s)",
+            (user.name, user.email)
+        )
 
-    conn.commit()
-    conn.close()
+        conn.commit()
+        return {"message": "User added successfully"}
 
-    return {"message": "User added successfully"}
+    except IntegrityError:
+        return {"error": "Email already exists"}
+
+    finally:
+        cursor.close()
+        conn.close()
+
 
 # PUT - Update user
 @app.put("/users/{id}")
@@ -107,6 +113,7 @@ def update_user(id: int, user: User):
     conn.close()
 
     return {"message": "User updated successfully"}
+
 
 # DELETE - Delete user
 @app.delete("/users/{id}")
@@ -125,6 +132,7 @@ def delete_user(id: int):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000, reload=False)
+
 ```
 
 ## 4. Run Application
