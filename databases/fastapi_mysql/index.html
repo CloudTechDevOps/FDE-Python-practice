@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #14213d; --ink-2: #1f2f55; --ink-3: #2c3f6b; --paper: #eef1f7; --card: #ffffff; --line: #dde3ee; --text: #1b2437; --muted: #6b778f; --accent: #f59e0b; --accent-d: #d98306; --green: #16a34a; --red: #dc2626; --blue: #2563eb; --radius: 12px; --shadow: 0 1px 2px rgba(20,33,61,.06), 0 8px 24px -12px rgba(20,33,61,.18); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body { font-family: "Plus Jakarta Sans", system-ui, sans-serif; background: var(--paper); color: var(--text); font-size: 14px; }
+  .hidden { display: none !important; }
+  button, input { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 16px; border-radius: 9px; border: 1px solid transparent; cursor: pointer; font-weight: 600; font-size: 13px; background: var(--ink); color: #fff; transition: background .15s, transform .1s; }
+  .btn:hover { background: var(--ink-3); }
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled { opacity: .55; cursor: not-allowed; }
+  .btn.accent { background: var(--accent); color: #1c1300; }
+  .btn.accent:hover { background: var(--accent-d); }
+  .btn.ghost { background: transparent; border-color: var(--line); color: var(--text); }
+  .btn.ghost:hover { background: var(--paper); }
+  .btn.danger { background: #fff; border-color: #f3c6c6; color: var(--red); }
+  .btn.danger:hover { background: var(--red); color: #fff; border-color: var(--red); }
+  .btn.sm { padding: 6px 10px; font-size: 12px; border-radius: 8px; }
+  .btn.block { width: 100%; padding: 12px; }
+  label { display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 6px; color: var(--ink-2); }
+  .field { margin-bottom: 16px; }
+  input { width: 100%; padding: 10px 13px; border-radius: 9px; border: 1px solid var(--line); background: #fff; font-size: 14px; transition: border-color .15s, box-shadow .15s; }
+  input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.15); }
+  .pw-wrap { position: relative; }
+  .pw-wrap button { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: 0; cursor: pointer; font-size: 12px; font-weight: 600; color: var(--muted); }
+  .auth { min-height: 100vh; display: grid; grid-template-columns: 1.05fr 1fr; }
+  .auth-side { background: var(--ink); color: #fff; padding: 56px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+  .auth-side::after { content: ""; position: absolute; width: 420px; height: 420px; right: -140px; bottom: -140px; border-radius: 50%; border: 70px solid rgba(245,158,11,.14); }
+  .auth-side h2 { font-size: 38px; line-height: 1.15; font-weight: 800; max-width: 440px; letter-spacing: -.02em; }
+  .auth-side p { color: #aab6d3; margin-top: 16px; max-width: 400px; line-height: 1.6; }
+  .auth-side ul { list-style: none; margin-top: 28px; display: grid; gap: 10px; color: #d5ddf0; position: relative; z-index: 1; }
+  .auth-side li::before { content: "✓"; color: var(--accent); font-weight: 800; margin-right: 10px; }
+  .auth-form-wrap { display: grid; place-items: center; padding: 32px; }
+  .auth-form { width: 100%; max-width: 380px; }
+  .auth-form h1 { font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+  .auth-form .sub { color: var(--muted); margin: 6px 0 26px; }
+  .switch { margin-top: 20px; text-align: center; color: var(--muted); font-size: 13px; }
+  .switch button { background: none; border: 0; color: var(--blue); font-weight: 700; cursor: pointer; }
+  .switch button:hover { text-decoration: underline; }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 18px; }
+  .mark { width: 38px; height: 38px; border-radius: 10px; background: var(--accent); color: #1c1300; display: grid; place-items: center; font-weight: 800; font-size: 18px; }
+  .app { display: grid; grid-template-columns: 230px 1fr; min-height: 100vh; }
+  .sidebar { background: var(--ink); color: #fff; padding: 22px 16px; display: flex; flex-direction: column; gap: 26px; position: sticky; top: 0; height: 100vh; }
+  .nav { display: grid; gap: 4px; }
+  .nav button { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 9px; border: 0; cursor: pointer; background: none; color: #b7c2dd; font-weight: 600; text-align: left; transition: background .15s; }
+  .nav button:hover { background: var(--ink-2); color: #fff; }
+  .nav button.active { background: var(--ink-3); color: #fff; box-shadow: inset 3px 0 0 var(--accent); }
+  .nav .count { margin-left: auto; background: var(--accent); color: #1c1300; border-radius: 99px; font-size: 11px; padding: 1px 8px; }
+  .me { margin-top: auto; display: flex; align-items: center; gap: 10px; padding: 12px; background: var(--ink-2); border-radius: 10px; }
+  .me .who { flex: 1; min-width: 0; }
+  .me .who b { display: block; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .me .who span { font-size: 11px; color: #8fa0c7; }
+  .avatar { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; flex: none; background: var(--accent); color: #1c1300; font-weight: 800; text-transform: uppercase; font-size: 13px; }
+  .content { padding: 28px 32px; max-width: 1100px; width: 100%; }
+  .page-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 22px; flex-wrap: wrap; }
+  .page-head h1 { font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+  .page-head p { color: var(--muted); margin-top: 2px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+  .stat { padding: 16px 18px; }
+  .stat .lbl { color: var(--muted); font-size: 12.5px; font-weight: 600; }
+  .stat .num { font-size: 28px; font-weight: 800; margin-top: 4px; letter-spacing: -.02em; }
+  .stat .note { font-size: 12px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .toolbar { display: flex; gap: 10px; padding: 14px; border-bottom: 1px solid var(--line); flex-wrap: wrap; align-items: center; }
+  .toolbar .grow { flex: 1; min-width: 180px; }
+  .toolbar .idbox { width: 110px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; padding: 11px 16px; font-size: 12px; font-weight: 700; color: var(--muted); background: #f7f9fc; border-bottom: 1px solid var(--line); white-space: nowrap; user-select: none; }
+  th.sortable { cursor: pointer; }
+  th.sortable:hover { color: var(--text); }
+  td { padding: 12px 16px; border-bottom: 1px solid #edf0f6; vertical-align: middle; }
+  tbody tr:hover { background: #f9fafd; }
+  tbody tr:last-child td { border-bottom: 0; }
+  .id { font-variant-numeric: tabular-nums; color: var(--muted); font-weight: 600; }
+  .name-cell { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; }
+  .actions { display: flex; gap: 6px; justify-content: flex-end; }
+  .empty { text-align: center; padding: 48px 16px; color: var(--muted); }
+  .empty b { display: block; color: var(--text); font-size: 15px; margin-bottom: 4px; }
+  .foot-note { padding: 12px 16px; color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--line); }
+  .skeleton td { color: transparent; }
+  .skeleton td > div { height: 14px; border-radius: 6px; background: linear-gradient(90deg, #eef1f7, #f8f9fc, #eef1f7); background-size: 200% 100%; animation: shimmer 1.2s infinite; }
+  @keyframes shimmer { to { background-position: -200% 0; } }
+  .ws-card { display: grid; grid-template-rows: auto 1fr auto; height: 540px; }
+  .ws-head { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 99px; font-size: 12px; font-weight: 700; }
+  .pill.on { background: #dcfce7; color: var(--green); }
+  .pill.off { background: #fee2e2; color: var(--red); }
+  .pill i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .pill.on i { animation: pulse 1.4s infinite; }
+  @keyframes pulse { 50% { opacity: .25; } }
+  .chat { overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 8px; background: #f7f9fc; }
+  .msg { max-width: 75%; padding: 8px 13px; border-radius: 14px; font-size: 13.5px; word-break: break-word; line-height: 1.45; }
+  .msg.me { align-self: flex-end; background: var(--ink); color: #fff; border-bottom-right-radius: 4px; }
+  .msg.server { align-self: flex-start; background: #fff; border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+  .msg.sys { align-self: center; font-size: 12px; color: var(--muted); padding: 2px; }
+  .msg small { display: block; opacity: .6; font-size: 10.5px; margin-top: 2px; }
+  .ws-send { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--line); }
+  .overlay { position: fixed; inset: 0; background: rgba(20,33,61,.55); display: grid; place-items: center; padding: 20px; z-index: 50; animation: fade .15s; }
+  .modal { width: 100%; max-width: 420px; background: #fff; border-radius: 14px; padding: 26px; box-shadow: 0 30px 60px -20px rgba(0,0,0,.5); animation: pop .18s; }
+  .modal h3 { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+  .modal .desc { color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+  .modal .foot { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+  @keyframes fade { from { opacity: 0; } }
+  @keyframes pop { from { transform: scale(.96) translateY(6px); opacity: 0; } }
+  #toasts { position: fixed; right: 20px; bottom: 20px; display: grid; gap: 10px; z-index: 100; }
+  .toast { background: var(--ink); color: #fff; padding: 12px 16px; border-radius: 10px; min-width: 240px; font-weight: 500; border-left: 4px solid var(--blue); box-shadow: 0 12px 30px -8px rgba(0,0,0,.4); animation: slide .25s; }
+  .toast.ok { border-color: var(--green); }
+  .toast.err { border-color: var(--red); }
+  @keyframes slide { from { transform: translateX(110%); } }
+  @media (max-width: 900px) { .auth { grid-template-columns: 1fr; } .auth-side { display: none; } .app { grid-template-columns: 1fr; } .sidebar { position: static; height: auto; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 12px; padding: 12px 16px; } .nav { display: flex; order: 3; width: 100%; } .nav button { flex: 1; justify-content: center; } .me { margin: 0 0 0 auto; padding: 6px 10px; } .content { padding: 20px 16px; } .stats { grid-template-columns: repeat(2, 1fr); } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div id="authView" class="auth">
+  <aside class="auth-side">
+    <div class="brand"><div class="mark">S</div> Student Manager</div>
+    <div style="position:relative;z-index:1">
+      <h2>Every student record, one clean place.</h2>
+      <p>Sign in to add, update and remove students, and watch changes arrive live over WebSocket.</p>
+      <ul><li>Secure JWT sign-in</li><li>Full create, read, update and delete</li><li>Live chat with the server</li></ul>
+    </div>
+    <small style="color:#7f90b8;position:relative;z-index:1">FastAPI backend at <span id="apiLabel"></span></small>
+  </aside>
+  <div class="auth-form-wrap">
+    <form class="auth-form" onsubmit="submitAuth(event)">
+      <h1 id="authTitle">Welcome back</h1>
+      <p class="sub" id="authSub">Sign in to manage your students.</p>
+      <div class="field"><label for="username">Username</label>
+        <input id="username" placeholder="Enter your username" autocomplete="username" required minlength="3"></div>
+      <div class="field"><label for="password">Password</label>
+        <div class="pw-wrap">
+          <input id="password" type="password" placeholder="Enter your password" autocomplete="current-password" required minlength="4">
+          <button type="button" onclick="togglePw()" id="pwBtn">Show</button>
+        </div></div>
+      <div class="field hidden" id="confirmField"><label for="confirm">Confirm password</label>
+        <input id="confirm" type="password" placeholder="Repeat your password" autocomplete="new-password"></div>
+      <button class="btn accent block" id="authBtn">Sign in</button>
+      <p class="switch" id="authSwitch"></p>
+    </form>
+  </div>
+</div>
+<div id="appView" class="app hidden">
+  <aside class="sidebar">
+    <div class="brand"><div class="mark">S</div> Student Manager</div>
+    <nav class="nav">
+      <button id="nav-students" class="active" onclick="showPage('students')">👩‍🎓 Students <span class="count" id="navCount">0</span></button>
+      <button id="nav-live" onclick="showPage('live')">⚡ Live socket</button>
+    </nav>
+    <div class="me">
+      <div class="avatar" id="avatar">A</div>
+      <div class="who"><b id="userName"></b><span>Signed in</span></div>
+      <button class="btn ghost sm" style="color:#fff;border-color:#3b4f82" onclick="logout()">Log out</button>
+    </div>
+  </aside>
+  <main class="content">
+    <!-- Students page -->
+    <section id="page-students">
+      <div class="page-head">
+        <div><h1>Students</h1><p>Add, search, edit and remove student records.</p></div>
+        <button class="btn accent" onclick="openAdd()">＋ Add student</button>
+      </div>
+      <div class="stats">
+        <div class="card stat"><div class="lbl">Total students</div><div class="num" id="statTotal">0</div></div>
+        <div class="card stat"><div class="lbl">Courses</div><div class="num" id="statCourses">0</div></div>
+        <div class="card stat"><div class="lbl">Average age</div><div class="num" id="statAge">0</div></div>
+        <div class="card stat"><div class="lbl">Top course</div><div class="num" id="statTop" style="font-size:18px;padding-top:7px">—</div>
+          <div class="note" id="statTopN"></div></div>
+      </div>
+      <div class="card">
+        <div class="toolbar">
+          <input class="grow" id="filter" placeholder="Filter by name or course…" oninput="render()" aria-label="Filter students">
+          <input class="idbox" id="searchId" type="number" min="1" placeholder="ID" aria-label="Student ID"
+                 onkeydown="if(event.key==='Enter')searchStudent()">
+          <button class="btn ghost" onclick="searchStudent()">Find by ID</button>
+          <button class="btn" onclick="getStudents()">Show all</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th class="sortable" onclick="sortBy('id')">ID <span data-s="id"></span></th>
+              <th class="sortable" onclick="sortBy('name')">Name <span data-s="name"></span></th>
+              <th class="sortable" onclick="sortBy('age')">Age <span data-s="age"></span></th>
+              <th class="sortable" onclick="sortBy('course')">Course <span data-s="course"></span></th>
+              <th></th>
+            </tr></thead>
+            <tbody id="students"></tbody>
+          </table>
+        </div>
+        <div class="foot-note" id="footNote"></div>
+      </div>
+    </section>
+    <!-- Live page -->
+    <section id="page-live" class="hidden">
+      <div class="page-head">
+        <div><h1>Live socket</h1><p>Send messages to the FastAPI WebSocket and see replies instantly.</p></div>
+      </div>
+      <div class="card ws-card">
+        <div class="ws-head">
+          <span id="wsStatus" class="pill off"><i></i><span>Offline</span></span>
+          <span style="margin-left:auto;display:flex;gap:8px">
+            <button class="btn sm" onclick="connectWS()">Connect</button>
+            <button class="btn ghost sm" onclick="disconnectWS()">Disconnect</button>
+            <button class="btn ghost sm" onclick="clearChat()">Clear</button>
+          </span>
+        </div>
+        <div class="chat" id="chat"><div class="msg sys">No messages yet</div></div>
+        <form class="ws-send" onsubmit="sendMessage(event)">
+          <input id="wsMessage" placeholder="Type a message…" autocomplete="off" aria-label="Message">
+          <button class="btn">Send</button>
+        </form>
+      </div>
+    </section>
+  </main>
+</div>
+<div id="modal" class="overlay hidden" onclick="if(event.target===this)closeModal()">
+  <form class="modal" onsubmit="submitModal(event)" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h3 id="modalTitle"></h3>
+    <p class="desc" id="modalDesc"></p>
+    <div id="modalBody"></div>
+    <div class="foot">
+      <button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn" id="modalSubmit">Save</button>
+    </div>
+  </form>
+</div>
+<div id="toasts" aria-live="polite"></div>
+<script>
+const API = "http://localhost:8000";
+const WS_URL = "ws://127.0.0.1:8000/ws";
+const $ = id => document.getElementById(id);
+let token = sessionStorage.getItem("token") || "";
+let currentUser = sessionStorage.getItem("user") || "";
+let students = [], socket = null, modalAction = null, authMode = "login";
+let sort = { key: "id", dir: 1 }, loading = false;
+let manualClose = false, retryTimer = null;
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+function toast(text, type = "") {
+  const t = document.createElement("div");
+  t.className = "toast " + type;
+  t.textContent = text;
+  $("toasts").appendChild(t);
+  setTimeout(() => t.remove(), 3200);
+}
+// Course badge colours are derived from the course name so each course keeps its colour.
+function courseStyle(course) {
+  let h = 0;
+  for (const ch of String(course)) h = (h * 31 + ch.charCodeAt(0)) % 360;
+  return `background:hsl(${h} 80% 94%);color:hsl(${h} 60% 30%)`;
+}
+async function api(path, options = {}) {
+  const headers = { "Content-Type": "application/json" };
+  if (token) headers.Authorization = "Bearer " + token;
+  try {
+    const res = await fetch(API + path, { headers, ...options });
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 401 && token) { logout(true); throw new Error("Session expired. Sign in again."); }
+    if (!res.ok) {
+      const detail = Array.isArray(data.detail) ? data.detail.map(d => d.msg).join(", ") : data.detail;
+      throw new Error(detail || `Request failed (${res.status})`);
+    }
+    return data;
+  } catch (e) {
+    toast(e.message === "Failed to fetch" ? "Can't reach the FastAPI server at " + API : e.message, "err");
+    throw e;
+  }
+}
+function setAuthMode(mode) {
+  authMode = mode;
+  const up = mode === "signup";
+  $("authTitle").textContent = up ? "Create your account" : "Welcome back";
+  $("authSub").textContent = up ? "Sign up to start managing students." : "Sign in to manage your students.";
+  $("authBtn").textContent = up ? "Create account" : "Sign in";
+  $("confirmField").classList.toggle("hidden", !up);
+  $("confirm").required = up;
+  $("password").autocomplete = up ? "new-password" : "current-password";
+  $("authSwitch").innerHTML = up
+    ? 'Already have an account? <button type="button" onclick="setAuthMode(\'login\')">Sign in</button>'
+    : 'New here? <button type="button" onclick="setAuthMode(\'signup\')">Create an account</button>';
+}
+function togglePw() {
+  const show = $("password").type === "password";
+  $("password").type = show ? "text" : "password";
+  $("pwBtn").textContent = show ? "Hide" : "Show";
+}
+async function submitAuth(e) {
+  e.preventDefault();
+  const username = $("username").value.trim(), password = $("password").value;
+  if (authMode === "signup" && password !== $("confirm").value) return toast("Passwords don't match", "err");
+  $("authBtn").disabled = true;
+  try {
+    if (authMode === "signup") {
+      const data = await api("/signup", { method: "POST", body: JSON.stringify({ username, password }) });
+      toast(data.message || "Account created. Sign in to continue.", "ok");
+      $("password").value = $("confirm").value = "";
+      setAuthMode("login");
+      return;
+    }
+    const data = await api("/login", { method: "POST", body: JSON.stringify({ username, password }) });
+    token = data.access_token;
+    currentUser = username;
+    sessionStorage.setItem("token", token);
+    sessionStorage.setItem("user", username);
+    enterApp();
+    toast("Welcome, " + username + "!", "ok");
+  } catch { /* api() already showed the error */ }
+  finally { $("authBtn").disabled = false; }
+}
+function enterApp() {
+  $("userName").textContent = currentUser;
+  $("avatar").textContent = currentUser.charAt(0);
+  $("authView").classList.add("hidden");
+  $("appView").classList.remove("hidden");
+  showPage("students");
+  getStudents();
+  connectWS();
+}
+function logout(expired = false) {
+  token = ""; currentUser = ""; students = [];
+  sessionStorage.clear();
+  disconnectWS(true);
+  $("appView").classList.add("hidden");
+  $("authView").classList.remove("hidden");
+  $("password").value = "";
+  setAuthMode("login");
+  if (!expired) toast("You've been logged out", "ok");
+}
+function showPage(name) {
+  for (const p of ["students", "live"]) {
+    $("page-" + p).classList.toggle("hidden", p !== name);
+    $("nav-" + p).classList.toggle("active", p === name);
+  }
+}
+async function getStudents() {
+  loading = true; render();
+  try {
+    const data = await api("/students");
+    students = Array.isArray(data) ? data : (data.students || []);
+    $("searchId").value = "";
+  } catch { students = []; }
+  loading = false; render();
+}
+async function searchStudent() {
+  const id = $("searchId").value;
+  if (!id) return toast("Enter a student ID first", "err");
+  try {
+    const data = await api(`/students/${id}`);
+    students = data && data.id !== undefined ? [data] : [];
+    if (!students.length) toast("No student with ID " + id, "err");
+    render();
+  } catch { students = []; render(); }
+}
+function sortBy(key) {
+  sort = { key, dir: sort.key === key ? -sort.dir : 1 };
+  render();
+}
+function render() {
+  const q = $("filter").value.trim().toLowerCase();
+  const list = students;
+  const shown = list
+    .filter(s => `${s.name} ${s.course}`.toLowerCase().includes(q))
+    .sort((a, b) => {
+      const x = a[sort.key], y = b[sort.key];
+      return (typeof x === "number" ? x - y : String(x).localeCompare(String(y))) * sort.dir;
+    });
+  // stats
+  const counts = {};
+  list.forEach(s => counts[s.course] = (counts[s.course] || 0) + 1);
+  const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+  $("statTotal").textContent = list.length;
+  $("navCount").textContent = list.length;
+  $("statCourses").textContent = Object.keys(counts).length;
+  $("statAge").textContent = list.length ? (list.reduce((a, s) => a + Number(s.age), 0) / list.length).toFixed(1) : "0";
+  $("statTop").textContent = top ? top[0] : "—";
+  $("statTopN").textContent = top ? top[1] + (top[1] === 1 ? " student" : " students") : "";
+  document.querySelectorAll("[data-s]").forEach(el => el.textContent = el.dataset.s === sort.key ? (sort.dir === 1 ? "▲" : "▼") : "");
+  $("footNote").textContent = `Showing ${shown.length} of ${list.length} students`;
+  if (loading) {
+    $("students").innerHTML = Array(4).fill('<tr class="skeleton"><td><div></div></td><td><div></div></td><td><div></div></td><td><div></div></td><td></td></tr>').join("");
+    return;
+  }
+  $("students").innerHTML = shown.length ? shown.map(s => `
+    <tr>
+      <td class="id">#${esc(s.id)}</td>
+      <td><div class="name-cell"><div class="avatar">${esc(String(s.name).charAt(0))}</div>${esc(s.name)}</div></td>
+      <td>${esc(s.age)}</td>
+      <td><span class="badge" style="${courseStyle(s.course)}">${esc(s.course)}</span></td>
+      <td><div class="actions">
+        <button class="btn ghost sm" onclick="openEdit(${Number(s.id)})" title="Replace all fields (PUT)">✏️ Edit</button>
+        <button class="btn ghost sm" onclick="openCourse(${Number(s.id)})" title="Change course only (PATCH)">🔁 Course</button>
+        <button class="btn danger sm" onclick="openDelete(${Number(s.id)})" aria-label="Delete ${esc(s.name)}">🗑</button>
+      </div></td>
+    </tr>`).join("")
+    : `<tr><td colspan="5"><div class="empty"><b>No students to show</b>${list.length ? "Try a different filter." : "Click “Add student” to create the first record."}</div></td></tr>`;
+}
+function openModal({ title, desc = "", body = "", submit = "Save", action, danger = false }) {
+  $("modalTitle").textContent = title;
+  $("modalDesc").textContent = desc;
+  $("modalBody").innerHTML = body;
+  $("modalSubmit").textContent = submit;
+  $("modalSubmit").className = "btn" + (danger ? " danger" : " accent");
+  modalAction = action;
+  $("modal").classList.remove("hidden");
+  const first = $("modalBody").querySelector("input");
+  if (first) first.focus(); else $("modalSubmit").focus();
+}
+function closeModal() { $("modal").classList.add("hidden"); modalAction = null; }
+async function submitModal(e) {
+  e.preventDefault();
+  if (!modalAction) return;
+  $("modalSubmit").disabled = true;
+  try { await modalAction(); closeModal(); getStudents(); } catch { /* error toast already shown */ }
+  finally { $("modalSubmit").disabled = false; }
+}
+const findStudent = id => students.find(s => Number(s.id) === id);
+const fields = (s = {}) => `
+  <div class="field"><label>Full name</label><input id="mName" value="${esc(s.name)}" placeholder="Jane Doe" required></div>
+  <div class="field"><label>Age</label><input id="mAge" type="number" min="1" max="120" value="${esc(s.age)}" placeholder="21" required></div>
+  <div class="field"><label>Course</label><input id="mCourse" value="${esc(s.course)}" placeholder="Computer Science" required></div>`;
+const readFields = () => ({ name: $("mName").value.trim(), age: Number($("mAge").value), course: $("mCourse").value.trim() });
+function openAdd() {                                   // POST /students
+  openModal({
+    title: "Add student", desc: "Create a new student record.", body: fields(), submit: "Add student",
+    action: async () => {
+      const data = await api("/students", { method: "POST", body: JSON.stringify(readFields()) });
+      toast(data.message || "Student added", "ok");
+    }
+  });
+}
+function openEdit(id) {                                // PUT /students/{id}
+  const s = findStudent(id);
+  openModal({
+    title: `Edit student #${id}`, desc: "Update every field for this student.", body: fields(s), submit: "Save changes",
+    action: async () => {
+      const data = await api(`/students/${id}`, { method: "PUT", body: JSON.stringify(readFields()) });
+      toast(data.message || "Student updated", "ok");
+    }
+  });
+}
+function openCourse(id) {                              // PATCH /students/{id}
+  const s = findStudent(id);
+  openModal({
+    title: "Change course", desc: `Move ${s.name} to a different course.`, submit: "Update course",
+    body: `<div class="field"><label>New course</label><input id="mCourse" value="${esc(s.course)}" required></div>`,
+    action: async () => {
+      const data = await api(`/students/${id}`, { method: "PATCH", body: JSON.stringify({ course: $("mCourse").value.trim() }) });
+      toast(data.message || "Course updated", "ok");
+    }
+  });
+}
+function openDelete(id) {                              // DELETE /students/{id}
+  const s = findStudent(id);
+  openModal({
+    title: "Delete student?", desc: `This permanently removes ${s.name} (#${id}). You can't undo this.`,
+    submit: "Delete student", danger: true,
+    action: async () => {
+      const data = await api(`/students/${id}`, { method: "DELETE" });
+      toast(data.message || "Student deleted", "ok");
+    }
+  });
+}
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+function setStatus(on) {
+  $("wsStatus").className = "pill " + (on ? "on" : "off");
+  $("wsStatus").lastElementChild.textContent = on ? "Online" : "Offline";
+}
+function chat(text, who = "sys") {
+  const box = $("chat");
+  if (box.dataset.started !== "1") { box.innerHTML = ""; box.dataset.started = "1"; }
+  const m = document.createElement("div");
+  m.className = "msg " + who;
+  m.textContent = text;
+  if (who !== "sys") {
+    const t = document.createElement("small");
+    t.textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    m.appendChild(t);
+  }
+  box.appendChild(m);
+  box.scrollTop = box.scrollHeight;
+}
+function clearChat() { $("chat").dataset.started = ""; $("chat").innerHTML = '<div class="msg sys">No messages yet</div>'; }
+function connectWS() {
+  manualClose = false;
+  clearTimeout(retryTimer);
+  if (socket && socket.readyState <= WebSocket.OPEN) return;
+  const ws = socket = new WebSocket(WS_URL);
+  ws.onopen = () => { setStatus(true); chat("Connected to the FastAPI WebSocket"); };
+  ws.onmessage = e => chat(e.data, "server");
+  ws.onerror = () => setStatus(false);
+  ws.onclose = () => {
+    if (socket !== ws) return;                          // ignore events from an old socket
+    setStatus(false);
+    socket = null;
+    if (manualClose || !token) return chat("Disconnected");
+    chat("Connection lost. Retrying in 3 seconds…");
+    retryTimer = setTimeout(connectWS, 3000);           // auto-reconnect
+  };
+}
+function disconnectWS(silent = false) {
+  manualClose = true;
+  clearTimeout(retryTimer);
+  if (socket) { socket.close(); if (!silent) chat("Disconnected"); }
+  socket = null;
+  setStatus(false);
+}
+function sendMessage(e) {
+  e.preventDefault();
+  const msg = $("wsMessage").value.trim();
+  if (!msg) return;
+  if (socket && socket.readyState === WebSocket.OPEN) {
+    socket.send(msg); chat(msg, "me"); $("wsMessage").value = "";
+  } else toast("WebSocket is offline. Click Connect first.", "err");
+}
+$("apiLabel").textContent = API;
+setAuthMode("login");
+if (token && currentUser) enterApp();
+</script>
+</body>
+</html>

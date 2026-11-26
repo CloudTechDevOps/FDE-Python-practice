@@ -14,6 +14,7 @@ def get_db_connection(): # connect DB
 
 
 # Retrieve all students
+
 def get_students():
 
     conn = get_db_connection()
