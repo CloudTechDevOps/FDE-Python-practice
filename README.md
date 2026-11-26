@@ -31,9 +31,9 @@
 | 18-Nov-2026 | *python opps introduction and class,methods,objects and variables* |
 | 19-Nov-2026 | *python opps _varibles,instance variables,methods,encapsulation,constructor* |
 | 20-Nov-2026 | *python opps concepts like Polymorphism, Abstraction, super method and Inheritance * |
-|  | ** |
-|  | ** |
-|  | ** |
+| 23-Nov-2026 | *database introduction and  fundamentals MySQL, NoSQL,* |
+| 24-Nov-2026 | *Non-relationa-mangodb, relational-MYSQLite and relational MySQL CURD operations * |
+| 25-Nov-2026 | *python flask framework indroduction and curd methods using mysql * |
 |  | ** |
 |  | ** |
 |  | ** |
