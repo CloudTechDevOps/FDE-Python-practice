@@ -553,5 +553,33 @@ app.add_middleware(
 def home():
     return {"message": "Welcome to FastAPI"}
 ```
+### query parameter
+```
+from fastapi import FastAPI
 
+app = FastAPI()
+
+@app.get("/users")
+def get_user(name: str, age: int):
+    return {
+        "message": "User details",
+        "name": name,
+        "age": age
+    }
+
+
+if name == "main":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
+
+
+# http://127.0.0.1:8000/users?name=Veera&age=30
+
+# {
+#     "message": "User created successfully",
+#     "name": "Veera",
+#     "age": 30
+# }
+```
 ---
