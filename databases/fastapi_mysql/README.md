@@ -554,7 +554,7 @@ def home():
     return {"message": "Welcome to FastAPI"}
 ```
 ### query parameter
-```
+```python
 from fastapi import FastAPI
 
 app = FastAPI()
