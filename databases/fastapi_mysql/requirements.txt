@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+mysql-connector-python
+pydantic
+python-jose[cryptography]
