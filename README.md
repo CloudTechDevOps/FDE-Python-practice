@@ -34,8 +34,8 @@
 | 23-Nov-2026 | *database introduction and  fundamentals MySQL, NoSQL,* |
 | 24-Nov-2026 | *Non-relationa-mangodb, relational-MYSQLite and relational MySQL CURD operations * |
 | 25-Nov-2026 | *python flask framework indroduction and curd methods using mysql * |
-|  | ** |
-|  | ** |
+| 26-Nov-2026 | *python FastApi with mysql CURD operations ,corss,websockets,jwt and fastApi inbuilt features* |
+| 27-Nov-2026 | *llm connect to mysql and perform natural language questions to fetch the data from mysql* |
 |  | ** |
 |  | ** |
 |  | ** |
